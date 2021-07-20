@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load crispy_forms_tags %}
+{% load custom_filter %}
+
+<div class="container mt-4">
+
+    <div class="p-4 m-4">
+
+
+        <div class="col-lg-5 rounded mx-auto border pt-4">
+            <div class="text-center col">
+
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Shopping_cart_with_food_clip_art_2.svg/307px-Shopping_cart_with_food_clip_art_2.svg.png"
+                    alt="" class="" style="height: 150px;">
+                <!-- <hr> -->
+                <div class="display-8">Add Product</div>
+                <hr>
+            </div>
+            <h3 hidden class="alert alert-light border rounded">Add Product</h3>
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form|crispy }}
+                {% if error %}
+                <div class="alert alert-danger" role="alert">
+                    {{error}}
+                </div>
+                {% endif %}
+                <!-- firstname -->
+                <div class="form-group">
+                    <input class="btn btn-sm btn-info" type="submit" value="Add">
+                </div>
+                {% if msg %}
+                <p>{{msg}}<a href="{% url 'store' %}"> Click Here</a> to go to main page</p>
+                <img src="data:image;base64,{{ img | bin_2_img }}"  style="width:250px;height:250px;">
+                {% endif %}
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
